@@ -6,7 +6,6 @@
 #define TP2_INFO901_CRACKER_H
 
 
-#include "Contexte.h"
 #include "ArcEnCiel.h"
 
 class Cracker {

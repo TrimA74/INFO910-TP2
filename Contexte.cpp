@@ -3,13 +3,13 @@
 //
 
 #include <cstring>
+#include <iostream>
 #include "Contexte.h"
-#include "HashAlgorithm.h"
 
 void Contexte::h( const string& c, byte d[] ){
-    unsigned char* clair;
-    strcpy(static_cast<char*>(clair),c.c_str());
-    HashAlgorithm::HashMD5(clair,c.length(),d);
+    byte param[c.length()];
+    copy(c.begin(),c.end(),param);
+    HashMD5(param,c.length(),d);
 }
 
 uint64 Contexte::h2i( uint64 t, const byte d[] ){

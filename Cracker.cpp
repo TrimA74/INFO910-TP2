@@ -8,6 +8,7 @@ using namespace std;
 
 bool Cracker::cracker( byte y[], const ArcEnCiel& aec, const Contexte& ctxt,
                   string & clair ) {
+    /*
         int nb_fausses_alertes = 0;
         for ( int t = T - 1; t > 0; --t ) {
             // fabrication du bon indice
@@ -28,4 +29,6 @@ bool Cracker::cracker( byte y[], const ArcEnCiel& aec, const Contexte& ctxt,
         cout << "Non trouve, fausses alertes = " << nb_fausses_alertes;
         return false;
     }
+     */
+    return false;
 }

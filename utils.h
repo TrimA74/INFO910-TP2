@@ -4,9 +4,9 @@
 
 #ifndef TP2_INFO901_TYPEDEF_H
 #define TP2_INFO901_TYPEDEF_H
-typedef unsigned int       uint;
-typedef unsigned long long uint64;
-typedef unsigned char      byte;
 
+#include <ostream>
+#include <openssl/sha.h>
+#include <openssl/md5.h>
 
 #endif //TP2_INFO901_TYPEDEF_H

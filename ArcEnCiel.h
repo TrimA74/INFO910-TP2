@@ -6,7 +6,6 @@
 #define TP2_INFO901_ARCENCIEL_H
 
 #include <vector>
-#include "typedef.h"
 #include "Contexte.h"
 
 using namespace std;
