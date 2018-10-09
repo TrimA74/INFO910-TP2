@@ -15,8 +15,13 @@ int main(int argc, char** argv){
     contexte._lettres      = "abcdefghijklmnopqrstuvwxyz"; // l'alphabet
 
 
+    /*
     byte hashedText[16];
     contexte.h("azerty",hashedText);
     cout << md5ToString(hashedText);
+     */
+    string result;
+    contexte.i2c(16955,result);
+    cout << "result = " << result <<endl;
 
 }
