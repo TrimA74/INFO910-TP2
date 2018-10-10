@@ -19,8 +19,9 @@ class ArcEnCiel {
     uint           _M;        // nombre de chaines dans la table
     uint           _T;        // taille de chaque chaine
     vector<Chaine> _X;        // la table elle-meme
+public:
     // Creer les M chaînes de taille T, dans le contexte ctxt
-    void creer( const Contexte& ctxt, int num, int M, int T );
+    void creer( Contexte& ctxt, int num, int M, int T );
     // Tri _X suivant idxT.
     void trier();
     // Sauvegarde la table sur disque.

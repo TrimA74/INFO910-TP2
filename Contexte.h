@@ -60,8 +60,8 @@ inline string md5ToString(byte data[]){
     result.reserve(32);
     for(int i=0; i < 16; i++)
     {
-        result += "0123456789ABCDEF"[data[i]/16];
-        result += "0123456789ABCDEF"[data[i]%16];
+        result += "0123456789abcdef"[data[i]/16];
+        result += "0123456789abcdef"[data[i]%16];
     }
     return result;
 }

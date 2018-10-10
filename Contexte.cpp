@@ -14,7 +14,9 @@ void Contexte::h( const string& c, byte d[] ){
 }
 
 uint64 Contexte::h2i( uint64 t, const byte d[] ){
-    return (d[0] + t) % _N;
+    uint64* ptr = (uint64*) d; // le tableau de caractères est vu comme un tableau de grand nombre.
+    uint64    i = *ptr;        // par définition le nombre stocké dans t[0-7].
+    return (i + t) % _N;
 }
 
 void Contexte::i2c( uint64 idx, string& clear ){
@@ -27,5 +29,26 @@ void Contexte::i2c( uint64 idx, string& clear ){
         rest = rest % (uint64)pow(_nb_lettres,exposant);
         exposant--;
     }
-    cout << endl;
+}
+
+uint64 Contexte::randIndex(){
+    unsigned long n1 = rand();
+    unsigned long n2 = rand();
+    uint64 n = ( (uint64) n2 )
+               + ( ( (uint64) n1 ) << 32 );
+    return n % _N;
+}
+
+uint64 Contexte::i2i( uint64 idx, uint64 t ){
+    //On trouve le texte clair à partir de l'indice
+    string clear;
+    i2c( idx, clear);
+    //cout << idx << " -i2c-> " << clear;
+    //On hash le clair
+    byte hashed[16];
+    h(clear, hashed);
+    //cout << " -h-> " << md5ToString(hashed);
+    //cout << " -h2i-> " << h2i(t,hashed) << endl;
+    //On recupère l'indice du hashé
+    return h2i(t,hashed);
 }
