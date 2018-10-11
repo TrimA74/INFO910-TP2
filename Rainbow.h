@@ -6,31 +6,31 @@
 #define TP2_INFO901_ARCENCIEL_H
 
 #include <vector>
-#include "Contexte.h"
+#include "Context.h"
 
 using namespace std;
 
-struct Chaine {
+struct Chain {
     uint64 idx1;    // premier indice de la chaine
     uint64 idxT;    // dernier indice de la chaine
 };
-class ArcEnCiel {
-    uint           _numero;   // numero de la table (ici 0, mais voir "Moult tables")
+class Rainbow {
+    uint           _number;   // numero de la table (ici 0, mais voir "Moult tables")
     uint           _M;        // nombre de chaines dans la table
     uint           _T;        // taille de chaque chaine
-    vector<Chaine> _X;        // la table elle-meme
+    vector<Chain> _X;        // la table elle-meme
 public:
     // Creer les M chaînes de taille T, dans le contexte ctxt
-    void creer( Contexte& ctxt, int num, int M, int T );
+    void create( Context& ctxt, int num, int M, int T );
     // Tri _X suivant idxT.
-    void trier();
+    void sort();
     // Sauvegarde la table sur disque.
     void save( string name );
     // Charge en mémoire la table à partir du disque.
     void load( string name );
     // Recherche dichotomique dans la table
     // ( p et q sont le premier/dernier trouvé )
-    bool recherche( uint64 idx, uint & p, uint & q );
+    bool search( uint64 idx, uint & p, uint & q );
 };
 
 

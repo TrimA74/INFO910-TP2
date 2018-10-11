@@ -1,4 +1,5 @@
 cmake-build-debug
 .idea
 *.o
-testeContexte
+test-context
+cracker-tool

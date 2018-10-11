@@ -16,14 +16,14 @@ typedef unsigned char      byte;
 
 using namespace std;
 
-class Contexte {
+class Context {
 public:
-    uint64 _N;              // nombre de mots
-    int    _mot_taille_min; // nombre de lettres min d'un mot
-    int    _mot_taille_max; // nombre de lettres max d'un mot
-    vector<uint64> _N_taille;     // tableau, nombre de mots d'une taille donnée
-    int    _nb_lettres;     // nombre de lettres possibles pour un caractère
-    string   _lettres;      // tableau des lettres de taille _nb_lettres
+    uint64 N;              // nombre de mots
+    int    word_length_min; // nombre de lettres min d'un mot
+    int    word_length_max; // nombre de lettres max d'un mot
+    vector<uint64> N_length;     // tableau, nombre de mots d'une taille donnée
+    int    nb_letters;     // nombre de lettres possibles pour un caractère
+    string   letters;      // tableau des lettres de taille _nb_lettres
     // fonction de hachage
     // In: Clair c ----> Out: Empreinte (tableau de 16 octets (MD5) ou 20 octets (SHA1)
     void h( const string& c, byte d[] );
@@ -39,10 +39,10 @@ private:
     // on peut mettre le clair dans cette donnée membre
     // (évite de créer un string à chaque fois)
     // Donner lui une taille suffisante au début ! (supérieure à _mot_taille_max)
-    string _clair;
+    string _clear;
     // on peut mettre l'empreinte dans cette donnée membre
     // (évite de créer un tableau à chaque fois)
-    byte   _empreinte[ 32 ];
+    byte   _hashed[ 32 ];
 
 };
 

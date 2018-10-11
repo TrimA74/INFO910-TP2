@@ -6,8 +6,8 @@
 #include "Cracker.h"
 using namespace std;
 
-bool Cracker::cracker( byte y[], const ArcEnCiel& aec, const Contexte& ctxt,
-                  string & clair ) {
+bool Cracker::cracker( byte y[], const Rainbow& rainbow, const Context& context,
+                  string & clear ) {
     /*
         int nb_fausses_alertes = 0;
         for ( int t = T - 1; t > 0; --t ) {

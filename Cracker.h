@@ -6,11 +6,12 @@
 #define TP2_INFO901_CRACKER_H
 
 
-#include "ArcEnCiel.h"
+#include "Rainbow.h"
 
 class Cracker {
-    bool cracker( byte y[], const ArcEnCiel& aec, const Contexte& ctxt,
-                           string & clair );
+public:
+    bool cracker( byte y[], const Rainbow& rainbow, const Context& context,
+                  string & clear );
 };
 
 
