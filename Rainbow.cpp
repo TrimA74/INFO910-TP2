@@ -5,15 +5,50 @@
 #include <cmath>
 #include <iostream>
 #include <algorithm>
+#include <fstream>
+#include <cstring>
+#include <sstream>
 #include "Rainbow.h"
 
 void Rainbow::load( string name ){
-    cout << "TODO load file !" << endl;
+    string line;
+    string word;
+    ifstream myfile(name);
+    if (myfile.is_open())
+    {
+        while ( getline (myfile,line) )
+        {
+            istringstream iss(line);
+
+            Chain chain;
+            getline(iss, word,';');
+            chain.idx1 = stoull(word);
+            getline(iss, word,';');
+            chain.idxT = stoull(word);
+            _X.push_back(chain);
+            cout << chain.idx1 << ";" << chain.idxT << '\n';
+        }
+        myfile.close();
+    }
+
+    else cout << "Unable to open file";
 };
 
 void Rainbow::save( string name ){
     sort();
-    cout << "TODO save file !" << endl;
+    ofstream myfile;
+    myfile.open(name);
+
+    if(myfile.is_open()) {
+        for (uint i = 0; i < _M; i++) {
+            myfile << _X[i].idx1 << ";" << _X[i].idxT << "\n";
+        }
+        myfile.close();
+    } else{
+        cout << "Unable to open file " << name << "!" << endl;
+    }
+
+    cout << "Saving file finished !" << endl;
 };
 
 void Rainbow::create( Context& ctxt, int num, int M, int T ){
@@ -26,14 +61,14 @@ void Rainbow::create( Context& ctxt, int num, int M, int T ){
         //On va calculer le premier et dernier élément de la chaine
         Chain chain;
         chain.idx1 = ctxt.randIndex();
-        cout << chain.idx1 << endl;
+        //cout << chain.idx1 << endl;
         uint64 tmp = chain.idx1;
         for(uint t=0; t < _T; t++){
             tmp = ctxt.i2i(tmp,t);
         }
 
         chain.idxT = tmp;
-        cout << tmp << endl;
+        //cout << tmp << endl;
         _X.push_back(chain);
     }
 };

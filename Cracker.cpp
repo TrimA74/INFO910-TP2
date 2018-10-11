@@ -8,6 +8,7 @@ using namespace std;
 
 bool Cracker::cracker( byte y[], const Rainbow& rainbow, const Context& context,
                   string & clear ) {
+    cout << "TODO cracker !" << endl;
     /*
         int nb_fausses_alertes = 0;
         for ( int t = T - 1; t > 0; --t ) {

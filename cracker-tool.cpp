@@ -19,9 +19,6 @@ int main(int argc, char** argv){
     Cracker tool;
     Context context;
 
-    //Load rainbow
-    rainbow.load(argv[1]);
-
     //Initialize context
     context.N              = 11881376; // 26^5
     context.word_length_min = 5;     // 5 lettres min
@@ -30,6 +27,9 @@ int main(int argc, char** argv){
     context.nb_letters     = 26;    // 26 lettres de l'alphabet
     context.letters      = "abcdefghijklmnopqrstuvwxyz"; // l'alphabet
 
+    rainbow.create(context,0,100,50000);
+    //Load rainbow
+    rainbow.load(argv[2]);
 
     //Read hashed and convert to an array of byte
     const string& hashedString = argv[1];
