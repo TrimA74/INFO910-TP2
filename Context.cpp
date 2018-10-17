@@ -20,14 +20,17 @@ uint64 Context::h2i( uint64 t, const byte d[] ){
 }
 
 void Context::i2c( uint64 idx, string& clear ){
+    
+    size_t cpt = (size_t) word_length_max -1;
 
-    int exposant = word_length_max - 1;
-    int rest = idx;
-    while(exposant >= 0){
-        int pos = rest / pow(nb_letters ,exposant);
-        clear += letters[pos];
-        rest = rest % (uint64)pow(nb_letters,exposant);
-        exposant--;
+    clear.resize((size_t) word_length_max);
+
+    clear.insert(cpt,1,letters[idx % nb_letters]);
+
+    while(idx / nb_letters >= 1){
+        idx = idx / nb_letters;
+        cpt--;
+        clear.insert(cpt,1,letters[idx % nb_letters]);
     }
 }
 
