@@ -17,15 +17,15 @@ struct Chain {
 class Rainbow {
     uint           _number;   // numero de la table (ici 0, mais voir "Moult tables")
     uint           _M;        // nombre de chaines dans la table
-    uint           _T;        // taille de chaque chaine
-    vector<Chain> _X;        // la table elle-meme
 public:
+    vector<Chain> _X;        // la table elle-meme
+    uint           _T;        // taille de chaque chaine
     // Creer les M chaînes de taille T, dans le contexte ctxt
     void create( Context& ctxt, int num, int M, int T );
     // Tri _X suivant idxT.
     void sort();
     // Sauvegarde la table sur disque.
-    void save( string name );
+    bool save( string name );
     // Charge en mémoire la table à partir du disque.
     void load( string name );
     // Recherche dichotomique dans la table

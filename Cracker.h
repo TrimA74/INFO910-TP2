@@ -10,8 +10,10 @@
 
 class Cracker {
 public:
-    bool cracker( byte y[], const Rainbow& rainbow, const Context& context,
+    bool cracker( byte y[], Rainbow& rainbow, Context& context,
                   string & clear );
+    bool verifyAlert( byte hashed[], Context context, vector<Chain> X, int t, int m, string& clear);
+    uint getProbability(uint64 N, uint M, uint T);
 };
 
 

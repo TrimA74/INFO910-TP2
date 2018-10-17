@@ -1,5 +1,5 @@
 # ajoutez vos programmes ci-dessous
-PROGS_SRC=test-context.cpp cracker-tool.cpp
+PROGS_SRC=test-context.cpp cracker-tool.cpp rainbow-tool.cpp
 
 SRC=Rainbow.cpp Context.cpp Cracker.cpp
 OBJ=${SRC:.cpp=.o}
@@ -13,6 +13,9 @@ test-context: test-context.cpp ${OBJ} ${HEADERS}
 	g++ ${CPPFLAGS} $< ${OBJ} -o $@ -lssl -lcrypto
 
 cracker-tool: cracker-tool.cpp ${OBJ} ${HEADERS}
+	g++ ${CPPFLAGS} $< ${OBJ} -o $@ -lssl -lcrypto
+
+rainbow-tool: rainbow-tool.cpp ${OBJ} ${HEADERS}
 	g++ ${CPPFLAGS} $< ${OBJ} -o $@ -lssl -lcrypto
 
 %.o: %.cpp %.h

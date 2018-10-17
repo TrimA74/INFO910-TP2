@@ -23,7 +23,7 @@ void Context::i2c( uint64 idx, string& clear ){
 
     int exposant = word_length_max - 1;
     int rest = idx;
-    while(rest > 0){
+    while(exposant >= 0){
         int pos = rest / pow(nb_letters ,exposant);
         clear += letters[pos];
         rest = rest % (uint64)pow(nb_letters,exposant);
@@ -40,6 +40,7 @@ uint64 Context::randIndex(){
 }
 
 uint64 Context::i2i( uint64 idx, uint64 t ){
+
     //On trouve le texte clair à partir de l'indice
     string clear;
     i2c( idx, clear);

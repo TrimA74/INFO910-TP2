@@ -23,13 +23,14 @@ int main(int argc, char** argv){
     context.N              = 11881376; // 26^5
     context.word_length_min = 5;     // 5 lettres min
     context.word_length_max = 5;     // 5 lettres max
-    context.N_length     = { 11881376 }; // il n'y a que les mots de 4 lettres
+    context.N_length     = { 11881376 }; // il n'y a que les mots de 5 lettres
     context.nb_letters     = 26;    // 26 lettres de l'alphabet
     context.letters      = "abcdefghijklmnopqrstuvwxyz"; // l'alphabet
 
-    rainbow.create(context,0,100,50000);
+    rainbow.create(context,0,100000,1000);
     //Load rainbow
     rainbow.load(argv[2]);
+
 
     //Read hashed and convert to an array of byte
     const string& hashedString = argv[1];
@@ -38,7 +39,7 @@ int main(int argc, char** argv){
 
     string clear = "";
     if(tool.cracker(md5Hashed, rainbow, context, clear))
-        cout << "Crack successfull !" << endl;
+        cout << "Crack successfull ! clear = " << clear << endl;
     else
         cout << "Crack failed !" << endl;
 

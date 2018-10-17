@@ -26,7 +26,6 @@ void Rainbow::load( string name ){
             getline(iss, word,';');
             chain.idxT = stoull(word);
             _X.push_back(chain);
-            cout << chain.idx1 << ";" << chain.idxT << '\n';
         }
         myfile.close();
     }
@@ -34,7 +33,7 @@ void Rainbow::load( string name ){
     else cout << "Unable to open file";
 };
 
-void Rainbow::save( string name ){
+bool Rainbow::save( string name ){
     sort();
     ofstream myfile;
     myfile.open(name);
@@ -44,11 +43,12 @@ void Rainbow::save( string name ){
             myfile << _X[i].idx1 << ";" << _X[i].idxT << "\n";
         }
         myfile.close();
+        return true;
     } else{
-        cout << "Unable to open file " << name << "!" << endl;
+        return false;
     }
 
-    cout << "Saving file finished !" << endl;
+
 };
 
 void Rainbow::create( Context& ctxt, int num, int M, int T ){
@@ -63,7 +63,8 @@ void Rainbow::create( Context& ctxt, int num, int M, int T ){
         chain.idx1 = ctxt.randIndex();
         //cout << chain.idx1 << endl;
         uint64 tmp = chain.idx1;
-        for(uint t=0; t < _T; t++){
+        //cout << "_T" << _T << endl;
+        for(uint t=1; t < _T; t++){
             tmp = ctxt.i2i(tmp,t);
         }
 
@@ -83,8 +84,8 @@ void Rainbow::sort(){
 bool Rainbow::search( uint64 idx, uint & p, uint & q ){
     bool found = false;
     int idxStart = 0, idxEnd = _X.size(), idxMiddle;
-    
-    while(!found && ((idx - idxStart) > 1)){
+
+    while(!found && ((idxEnd - idxStart) > 1)){
         idxMiddle = (idxStart + idxEnd) / 2;
         found = (_X[idxMiddle].idxT == idx);
 
@@ -93,11 +94,14 @@ bool Rainbow::search( uint64 idx, uint & p, uint & q ){
         else 
             idxStart = idxMiddle;
     }
-    
+
     if(_X[idxStart].idxT == idx) 
     {
-        p = _X[idxStart].idx1;
-        q = _X[idxStart].idxT;
+        p = idxStart;
+        q = idxStart;
+        //S'il y a des lignes successives qui ont le même idxT
+        while(_X[q].idxT == _X[p].idxT)
+            q++;
         return true;
     }else
         return false;
