@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <cstring>
 #include "Rainbow.h"
 #include "Cracker.h"
 
@@ -27,18 +28,21 @@ int main(int argc, char** argv){
     context.nb_letters     = 26;    // 26 lettres de l'alphabet
     context.letters      = "abcdefghijklmnopqrstuvwxyz"; // l'alphabet
 
-    rainbow.create(context,0,100000,1000);
+    rainbow._M = 100000;
+    rainbow._T = 1000;
+    //rainbow.create(context,0,100000,1000);
     //Load rainbow
     rainbow.load(argv[2]);
 
 
     //Read hashed and convert to an array of byte
-    const string& hashedString = argv[1];
-    byte md5Hashed[hashedString.length()];
-    copy(hashedString.begin(), hashedString.end(),md5Hashed);
+    byte hashedText[16];
+    context.h("azert",hashedText);
+    cout << "allo : " << md5ToString(hashedText) << endl;
+
 
     string clear = "";
-    if(tool.cracker(md5Hashed, rainbow, context, clear))
+    if(tool.cracker(hashedText, rainbow, context, clear))
         cout << "Crack successfull ! clear = " << clear << endl;
     else
         cout << "Crack failed !" << endl;

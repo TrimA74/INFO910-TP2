@@ -15,9 +15,9 @@ struct Chain {
     uint64 idxT;    // dernier indice de la chaine
 };
 class Rainbow {
+public:
     uint           _number;   // numero de la table (ici 0, mais voir "Moult tables")
     uint           _M;        // nombre de chaines dans la table
-public:
     vector<Chain> _X;        // la table elle-meme
     uint           _T;        // taille de chaque chaine
     // Creer les M chaînes de taille T, dans le contexte ctxt

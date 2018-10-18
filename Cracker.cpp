@@ -33,14 +33,18 @@ bool Cracker::cracker( byte y[], Rainbow& rainbow, Context& context,
 
 bool Cracker::verifyAlert( byte hashed[], Context context, vector<Chain> X, int t, int m, string& clear){
 
-    cout << "m = " << m << "and X.size() = " << X.size() <<endl;
+    //cout << "m = " << m << "and X.size() = " << X.size() <<endl;
     uint64 idx = X[m].idx1;
-    cout << "t = " << t << endl;
+    //cout << "t = " << t << endl;
     for(int k=1; k<t-1; k++){
         //cout << "idx = "<< idx << endl;
         idx = context.i2i(k,idx);
     }
+    clear.clear();
     context.i2c(idx,clear);
+    if(clear == "azert"){
+        cout << "clear=" << clear << endl;
+    }
     byte newHashed[16];
     context.h(clear,newHashed);
     bool equals = true;

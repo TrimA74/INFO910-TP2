@@ -8,9 +8,10 @@
 #include "Context.h"
 
 void Context::h( const string& c, byte d[] ){
-    byte param[c.length()];
-    copy(c.begin(),c.end(),param);
-    HashMD5(param,c.length(),d);
+    //byte param[c.length()];
+    //copy(c.begin(),c.end(),param);
+    //HashMD5(param,c.length(),d);
+    HashMD5((byte*)c.c_str(),c.length(),d);
 }
 
 uint64 Context::h2i( uint64 t, const byte d[] ){
@@ -20,17 +21,17 @@ uint64 Context::h2i( uint64 t, const byte d[] ){
 }
 
 void Context::i2c( uint64 idx, string& clear ){
-    
+    clear.clear();
     size_t cpt = (size_t) word_length_max -1;
 
     clear.resize((size_t) word_length_max);
 
-    clear.insert(cpt,1,letters[idx % nb_letters]);
+    clear[cpt] = letters[idx % nb_letters];
 
     while(idx / nb_letters >= 1){
         idx = idx / nb_letters;
         cpt--;
-        clear.insert(cpt,1,letters[idx % nb_letters]);
+        clear[cpt] = letters[idx % nb_letters];
     }
 }
 

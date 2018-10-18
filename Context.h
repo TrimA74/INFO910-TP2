@@ -56,6 +56,7 @@ inline void HashSHA1(unsigned char* pPlain, int nPlainLen, unsigned char* pHash)
 }
 
 inline string md5ToString(byte data[]){
+    /*
     string result;
     result.reserve(32);
     for(int i=0; i < 16; i++)
@@ -64,5 +65,10 @@ inline string md5ToString(byte data[]){
         result += "0123456789abcdef"[data[i]%16];
     }
     return result;
+     */
+    char mdString[33];
+    for (int i = 0; i < 16; i++)
+        sprintf(&mdString[i*2], "%02x", (unsigned int)data[i]);
+    return mdString;
 }
 #endif //TP2_INFO901_CONTEXTE_H
