@@ -99,6 +99,9 @@ bool Rainbow::search( uint64 idx, uint & p, uint & q ){
     {
         p = idxStart;
         q = idxStart;
+        while(p>0 && (_X[p].idxT == _X[p-1].idxT))
+            p--;
+
         //S'il y a des lignes successives qui ont le même idxT
         while(_X[q].idxT == _X[p].idxT)
             q++;

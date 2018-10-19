@@ -38,12 +38,14 @@ bool testChainCalcul(Context context){
     for(int i=0; i<10; i++){
         idxEnd = idxStart[i];
         cout << idxStart[i] << " -i2i(1)-> ... ";
-        for(uint64 j=1; j<50000; j++){
+        for(unsigned j=1; j< 50000; j++){
             idxEnd = context.i2i(idxEnd,j);
         }
         cout << "-i2i(49999)-> " << idxEnd << endl;
 
     }
+
+    return true;
 }
 
 bool testh2i(Context context){

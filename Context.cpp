@@ -21,6 +21,25 @@ uint64 Context::h2i( uint64 t, const byte d[] ){
 }
 
 void Context::i2c( uint64 idx, string& clear ){
+    clear.resize( word_length_max );
+    for ( int i = word_length_max-1; i >= 0; --i ) {
+        clear[ i ] = letters[ idx % nb_letters ];
+        idx       /= nb_letters;
+    }
+}
+/*
+void Context::i2c( uint64 idx, string& clear ){
+    clear.clear();
+    int exposant = word_length_max - 1;
+    int rest = idx;
+    while(exposant >= 0){
+        int pos = rest / pow(nb_letters ,exposant);
+        clear += letters[pos];
+        rest = rest % (uint64)pow(nb_letters,exposant);
+        exposant--;
+    }
+
+
     clear.clear();
     size_t cpt = (size_t) word_length_max -1;
 
@@ -33,7 +52,8 @@ void Context::i2c( uint64 idx, string& clear ){
         cpt--;
         clear[cpt] = letters[idx % nb_letters];
     }
-}
+
+}*/
 
 uint64 Context::randIndex(){
     unsigned long n1 = rand();
@@ -43,17 +63,40 @@ uint64 Context::randIndex(){
     return n % N;
 }
 
+/*
 uint64 Context::i2i( uint64 idx, uint64 t ){
 
     //On trouve le texte clair à partir de l'indice
-    string clear;
+    string clear = "";
     i2c( idx, clear);
-    //cout << idx << " -i2c-> " << clear;
+
     //On hash le clair
     byte hashed[16];
     h(clear, hashed);
-    //cout << " -h-> " << md5ToString(hashed);
-    //cout << " -h2i-> " << h2i(t,hashed) << endl;
+
     //On recupère l'indice du hashé
     return h2i(t,hashed);
+}*/
+
+uint64 Context::i2i( uint64 idx, uint64 t ){
+
+    string clear = "";
+    i2c(idx, clear);
+
+    //cout << _clair << endl;
+
+    byte hashed[16];
+    h(clear, hashed);
+
+    //cout << _empreinte << endl;
+
+    /*for(unsigned i = 0; i < sizeof(_empreinte)/ sizeof(_empreinte[0]); i++) {
+        printf("%02x", _empreinte[i]);
+    } printf("\n");*/
+
+    uint64 nextIdx = h2i(t,hashed);
+
+    //cout << nextIdx << endl;
+
+    return nextIdx;
 }

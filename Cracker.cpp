@@ -9,6 +9,7 @@ using namespace std;
 
 bool Cracker::cracker( byte y[], Rainbow& rainbow, Context& context,
                        string & clear ) {
+    cout << "hashed = " << md5ToString(y) << endl;
     int nb_fausses_alertes = 0;
     for ( int t = rainbow._T - 1; t > 0; --t ) {
         // fabrication du bon indice
@@ -42,6 +43,7 @@ bool Cracker::verifyAlert( byte hashed[], Context context, vector<Chain> X, int 
     }
     clear.clear();
     context.i2c(idx,clear);
+    cout << "clear = " << clear << endl;
     if(clear == "azert"){
         cout << "clear=" << clear << endl;
     }
