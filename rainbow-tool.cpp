@@ -32,21 +32,8 @@ int main(int argc, char** argv){
     int T = atoi(argv[5]);
     string output = argv[6];
 
-    //cout << "worldLengthMin = " << worldLengthMin <<endl;
-    //cout << "worldLengthMax = " << worldLengthMin <<endl;
-    //cout << "M = " << M<<endl;
-    //cout << "T = " << T << endl;
-
     Rainbow rainbow;
     Context context(worldLengthMin, worldLengthMax,letters);
-
-    //Initialize context
-    //context.N              = pow(26,worldLength); // 26^5
-    //context.word_length_min = worldLength;     // 5 lettres min
-    //context.word_length_max = worldLength;     // 5 lettres max
-    //context.N_length     = { context.N }; // il n'y a que les mots de 5 lettres
-    //context.nb_letters     = 26;    // 26 lettres de l'alphabet
-    //context.letters      = "abcdefghijklmnopqrstuvwxyz"; // l'alphabet
 
     setOutputName(output, context, M, T);
 

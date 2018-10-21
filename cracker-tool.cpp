@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <sstream>
-#include <cstring>
 #include "Rainbow.h"
 #include "Cracker.h"
 
@@ -13,8 +12,8 @@ using namespace std;
 int main(int argc, char** argv){
 
     if(argc != 3){
-        cout << "Usage : ./cracker-tool <hashed> <basename_word-length-min_word-length-max_letters.txt>" << endl;
-        cout << "Example for azert : ./cracker-tool cdaa6716746fb685734abde87f1b08ad rainbow_5_5_abcdefghijklmnopqrstuvwxyz.txt" << endl;
+        cout << "Usage : ./cracker-tool <hashed> <basename_word-length-min_word-length-max_letters_M_T.txt>" << endl;
+        cout << "Example for azert : ./cracker-tool cdaa6716746fb685734abde87f1b08ad rainbow_5_5_abcdefghijklmnopqrstuvwxyz_100000_1000.txt" << endl;
         return -1;
     }
 
@@ -45,29 +44,20 @@ int main(int argc, char** argv){
     Cracker tool;
     Context context(word_length_min,word_length_max,letters);
 
-    //Initialize context
-    /*
-    context.N              = 11881376; // 26^5
-    context.word_length_min = 5;     // 5 lettres min
-    context.word_length_max = 5;     // 5 lettres max
-    context.N_length     = { context.N }; // il n'y a que les mots de 5 lettres
-    context.nb_letters     = 26;    // 26 lettres de l'alphabet
-    context.letters      = "abcdefghijklmnopqrstuvwxyz"; // l'alphabet
-*/
     rainbow._M = M;
     rainbow._T = T;
 
     //Load rainbow
     rainbow.load(argv[2]);
 
-    //Read hashed and convert to an array of byte
+    //TODO Read hashed and convert to an array of byte
     byte hashedText[16];
-    context.h("youpi",hashedText);
-    //cout << md5ToString(hashedText) << endl;
+    context.h("azert",hashedText);
 
     string clear = "";
-    double probability = tool.getProbability(context.N,M,T) * 100;
-    printf("Percentage of success =  %.2f %\n", probability);
+    //To get 2 decimals
+    double probability = round(tool.getProbability(context.N,M,T)*100*100)/100;
+    cout << "Percentage of success = " << probability << "%" <<endl;
     if(tool.cracker(hashedText, rainbow, context, clear))
         cout << "Crack successfull ! clear = " << clear << endl;
     else

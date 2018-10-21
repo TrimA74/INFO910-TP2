@@ -20,6 +20,14 @@ public:
     uint           _M;        // nombre de chaines dans la table
     vector<Chain> _X;        // la table elle-meme
     uint           _T;        // taille de chaque chaine
+
+    Rainbow(){
+      this->_number = 0;
+      this->_M=0;
+      this->_X.clear();
+      this->_T = 0;
+    };
+
     // Creer les M chaînes de taille T, dans le contexte ctxt
     void create( Context& ctxt, int num, int M, int T );
     // Tri _X suivant idxT.

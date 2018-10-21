@@ -2,10 +2,6 @@
 #include <iostream>
 #include "Context.h"
 
-bool assert(uint a, uint b){
-    return a == b;
-}
-
 void testContext(Context context){
     cout << "-------------------------------------------------------------------" << endl;
     cout << "taille   = 5"<<endl;
@@ -27,7 +23,7 @@ void testContext(Context context){
         context.h(clear,hashed);
         idxEnd = context.h2i(1,hashed);
         cout << idxStart[i] << " -i2c-> " << clear << " -h-> " << md5ToString(hashed) << " -h2i(1)->"<< idxEnd << endl;
-        cout << idxStart[i] << " -i2i(1)-> " << context.i2i(idxStart[i], 1, 0) << endl;
+        cout << idxStart[i] << " -i2i(1)-> " << context.i2i(idxStart[i], 1) << endl;
     }
 }
 
@@ -39,7 +35,7 @@ bool testChainCalcul(Context context){
         idxEnd = idxStart[i];
         cout << idxStart[i] << " -i2i(1)-> ... ";
         for(unsigned j=1; j< 50000; j++){
-            idxEnd = context.i2i(idxEnd,j,0);
+            idxEnd = context.i2i(idxEnd,j);
         }
         cout << "-i2i(49999)-> " << idxEnd << endl;
 
@@ -67,79 +63,10 @@ bool testi2i(Context context){
 }
 
 int main(int argc, char** argv){
-    Context context;
-
-    //Initialize context
-    context.N              = 11881376; // 26^5
-    context.word_length_min = 5;     // 5 lettres min
-    context.word_length_max = 5;     // 5 lettres max
-    context.N_length     = { context.N }; // il n'y a que les mots de 5 lettres
-    context.nb_letters     = 26;    // 26 lettres de l'alphabet
-    context.letters      = "abcdefghijklmnopqrstuvwxyz"; // l'alphabet
+    Context context(5,5,"abcdefghijklmnopqrstuvwxyz");
 
     testContext(context);
     testChainCalcul(context);
 
-    string azertText = "";
-    context.i2c(442565, azertText);
-    cout << azertText << endl;
-
-    //Test youpi
-    uint64 tmp = 67709;
-    for(unsigned i=1; i<839; i++)
-        tmp = context.i2i(tmp,i,0);
-
-    cout << tmp << endl;
-    string youpi = "";
-    context.i2c(tmp,youpi);
-    cout << youpi << endl;
-
-    cout << "Quel est l'index du hashed de youpi ?" << endl;
-    byte youpiHashed[16];
-    context.h("youpi",youpiHashed);
-    cout << "idx de youpi = " << context.h2i(29,youpiHashed) << endl;
-
-
-
-
-    /*
-    //Test i2i
-    uint64 idx = 400843;
-    for(uint64 i=1; i<50000; i++) {
-        idx = context.i2i(idx, i);
-    }
-    cout << "N=" << context.N << endl;
-    cout << idx <<endl;
-    *///return 0;
+    return 0;
 }
-
-/*#include <iostream>
-#include "Context.h"
-#include "Rainbow.h"
-
-int main(int argc, char** argv){
-    Context context;
-    context.N               = 11881376; // 26^5
-    context.word_length_min = 5;     // 5 lettres min
-    context.word_length_max = 5;     // 5 lettres max
-    context.N_length        = { 11881376 }; // il n'y a que les mots de 4 lettres
-    context.nb_letters      = 26;    // 26 lettres de l'alphabet
-    context.letters         = "abcdefghijklmnopqrstuvwxyz"; // l'alphabet
-
-
-    byte hashedText[16];
-    contexte.h("azerty",hashedText);
-    cout << md5ToString(hashedText);
-
-
-
-    string result;
-    contexte.i2c(11844934,result);
-    cout << "result = " << result <<endl;
-    byte hash[16];
-    contexte.h(result,hash);
-    cout << "h() " << md5ToString(hash) << endl;
-    cout << contexte.h2i(1,hash) << endl;
-
-
-}*/

@@ -33,22 +33,13 @@ uint64 Context::randIndex(){
     return n % N;
 }
 
-uint64 Context::i2i( uint64 idx, uint64 t, int i ){
+uint64 Context::i2i( uint64 idx, uint64 t){
 
-    string clear = "";
-    i2c(idx, clear);
+    _clear.clear();
+    i2c(idx, _clear);
 
-    /*if(clear == "youpi") {
-        cout
-                << " idx = "<<idx<<endl
-                << " m = "<<i<<endl
-                << " t = "<<t-1<<endl
-                <<clear << endl
-                << endl;
-    }
-*/
     byte hashed[16];
-    h(clear, hashed);
+    h(_clear, hashed);
 
     return h2i(t,hashed);
 }
