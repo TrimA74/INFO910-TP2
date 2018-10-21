@@ -10,11 +10,22 @@
 
 using namespace std;
 
+void str2bin(const std::string& in, unsigned char out[]){
+
+    const char* data = in.data();
+    const std::string::size_type size = in.size();
+    for(std::string::size_type i = 0; i < size; i+= 2) {
+        unsigned int tmp;
+        std::sscanf(data+i, "%02X", &tmp);
+        out[i/2] = tmp;
+    }
+}
+
 int main(int argc, char** argv){
 
     if(argc != 3){
         cout << "Usage : ./cracker-tool <hashed> <basename_word-length-min_word-length-max_letters.txt>" << endl;
-        cout << "Example for azert : ./cracker-tool cdaa6716746fb685734abde87f1b08ad rainbow_5_5_abcdefghijklmnopqrstuvwxyz.txt" << endl;
+        cout << "Example for azert : ./cracker-tool cdaa6716746fb685734abde87f1b08ad rainbow_5_5_abcdefghijklmnopqrstuvwxyz_100000_1000.txt" << endl;
         return -1;
     }
 
@@ -62,8 +73,7 @@ int main(int argc, char** argv){
 
     //Read hashed and convert to an array of byte
     byte hashedText[16];
-    context.h("youpi",hashedText);
-    //cout << md5ToString(hashedText) << endl;
+    str2bin(argv[1],hashedText);
 
     string clear = "";
     double probability = tool.getProbability(context.N,M,T) * 100;
@@ -75,3 +85,4 @@ int main(int argc, char** argv){
 
     return 0;
 }
+
