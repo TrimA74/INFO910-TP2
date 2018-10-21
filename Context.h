@@ -8,6 +8,8 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#include <cmath>
 #include "utils.h"
 
 typedef unsigned int       uint;
@@ -24,6 +26,32 @@ public:
     vector<uint64> N_length;     // tableau, nombre de mots d'une taille donnée
     int    nb_letters;     // nombre de lettres possibles pour un caractère
     string   letters;      // tableau des lettres de taille _nb_lettres
+
+    Context(){
+        this->word_length_min = 0;
+        this->word_length_max = 0;
+        this->letters = "";
+        this->nb_letters = 0;
+        this->N = 0;
+    };
+
+    Context(int word_length_min, int word_length_max, string letters) : Context(){
+        this->word_length_min = word_length_min;
+        this->word_length_max = word_length_max;
+        this->letters = letters;
+        this->nb_letters = (int)(letters.size());
+
+        this->N = 0;
+        for(int i=word_length_min; i<=word_length_max; i++)
+            N += pow(nb_letters,i);
+
+        cout << "N=" << N <<endl;
+        cout << "min=" << word_length_min << endl;
+        cout << "max=" << word_length_max << endl;
+        cout << "nb_letters=" << nb_letters << endl;
+        cout << "letters=" << letters << endl;
+    };
+
     // fonction de hachage
     // In: Clair c ----> Out: Empreinte (tableau de 16 octets (MD5) ou 20 octets (SHA1)
     void h( const string& c, byte d[] );
@@ -32,7 +60,7 @@ public:
     // In: index idx ----> Out: Clair c
     void i2c( uint64 idx, string& c );
     // In: index idx, position t ----> retourne index (la composée des précédentes)
-    uint64 i2i( uint64 idx, uint64 t );
+    uint64 i2i( uint64 idx, uint64 t, int i );
     // Retourne un indice aléatoire valide.
     uint64 randIndex();
 private:

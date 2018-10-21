@@ -12,7 +12,7 @@
 
 void Rainbow::load( string name ){
     string line;
-    string word;
+    string word = "";
     ifstream myfile(name);
     if (myfile.is_open())
     {
@@ -23,8 +23,10 @@ void Rainbow::load( string name ){
             Chain chain;
             getline(iss, word,';');
             chain.idx1 = stoull(word);
+            word.clear();
             getline(iss, word,';');
             chain.idxT = stoull(word);
+            word.clear();
             _X.push_back(chain);
         }
         myfile.close();
@@ -65,11 +67,10 @@ void Rainbow::create( Context& ctxt, int num, int M, int T ){
         uint64 tmp = chain.idx1;
         //cout << "_T" << _T << endl;
         for(uint t=1; t < _T; t++){
-            tmp = ctxt.i2i(tmp,t);
+            tmp = ctxt.i2i(tmp,t, i);
         }
 
         chain.idxT = tmp;
-        //cout << tmp << endl;
         _X.push_back(chain);
     }
 };
@@ -83,7 +84,7 @@ void Rainbow::sort(){
 
 bool Rainbow::search( uint64 idx, uint & p, uint & q ){
     bool found = false;
-    int idxStart = 0, idxEnd = _X.size(), idxMiddle;
+    int idxStart = 0, idxEnd = _M, idxMiddle;
 
     while(!found && ((idxEnd - idxStart) > 1)){
         idxMiddle = (idxStart + idxEnd) / 2;
@@ -101,10 +102,11 @@ bool Rainbow::search( uint64 idx, uint & p, uint & q ){
         q = idxStart;
         while(p>0 && (_X[p].idxT == _X[p-1].idxT))
             p--;
-
+        p++;
         //S'il y a des lignes successives qui ont le même idxT
-        while(_X[q].idxT == _X[p].idxT)
+        while(q<_M && _X[q].idxT == _X[p].idxT)
             q++;
+        q--;
         return true;
     }else
         return false;

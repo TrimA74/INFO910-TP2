@@ -27,19 +27,19 @@ void testContext(Context context){
         context.h(clear,hashed);
         idxEnd = context.h2i(1,hashed);
         cout << idxStart[i] << " -i2c-> " << clear << " -h-> " << md5ToString(hashed) << " -h2i(1)->"<< idxEnd << endl;
-        cout << idxStart[i] << " -i2i(1)-> " << context.i2i(idxStart[i], 1) << endl;
+        cout << idxStart[i] << " -i2i(1)-> " << context.i2i(idxStart[i], 1, 0) << endl;
     }
 }
 
 bool testChainCalcul(Context context){
     cout << "-------- Exemples de calcul de chaînes de longueur T=50000 ----------" << endl;
-    uint64 idxStart[10] = {1172136, 427373, 1144282, 6286051, 6839583, 7356570, 5866002, 2529175, 3285784, 3354650};
+    uint64 idxStart[11] = {1172136, 427373, 1144282, 6286051, 6839583, 7356570, 5866002, 2529175, 3285784, 3354650,442565};
     uint64 idxEnd;
-    for(int i=0; i<10; i++){
+    for(int i=0; i<11; i++){
         idxEnd = idxStart[i];
         cout << idxStart[i] << " -i2i(1)-> ... ";
         for(unsigned j=1; j< 50000; j++){
-            idxEnd = context.i2i(idxEnd,j);
+            idxEnd = context.i2i(idxEnd,j,0);
         }
         cout << "-i2i(49999)-> " << idxEnd << endl;
 
@@ -79,6 +79,25 @@ int main(int argc, char** argv){
 
     testContext(context);
     testChainCalcul(context);
+
+    string azertText = "";
+    context.i2c(442565, azertText);
+    cout << azertText << endl;
+
+    //Test youpi
+    uint64 tmp = 67709;
+    for(unsigned i=1; i<839; i++)
+        tmp = context.i2i(tmp,i,0);
+
+    cout << tmp << endl;
+    string youpi = "";
+    context.i2c(tmp,youpi);
+    cout << youpi << endl;
+
+    cout << "Quel est l'index du hashed de youpi ?" << endl;
+    byte youpiHashed[16];
+    context.h("youpi",youpiHashed);
+    cout << "idx de youpi = " << context.h2i(29,youpiHashed) << endl;
 
 
 
