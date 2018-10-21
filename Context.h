@@ -5,12 +5,13 @@
 #ifndef TP2_INFO901_CONTEXTE_H
 #define TP2_INFO901_CONTEXTE_H
 
-
 #include <string>
 #include <vector>
 #include <iostream>
 #include <cmath>
-#include "utils.h"
+#include <ostream>
+#include <openssl/sha.h>
+#include <openssl/md5.h>
 
 typedef unsigned int       uint;
 typedef unsigned long long uint64;
@@ -44,12 +45,6 @@ public:
         this->N = 0;
         for(int i=word_length_min; i<=word_length_max; i++)
             N += pow(nb_letters,i);
-
-        cout << "N=" << N <<endl;
-        cout << "min=" << word_length_min << endl;
-        cout << "max=" << word_length_max << endl;
-        cout << "nb_letters=" << nb_letters << endl;
-        cout << "letters=" << letters << endl;
     };
 
     // fonction de hachage
@@ -60,7 +55,7 @@ public:
     // In: index idx ----> Out: Clair c
     void i2c( uint64 idx, string& c );
     // In: index idx, position t ----> retourne index (la composée des précédentes)
-    uint64 i2i( uint64 idx, uint64 t, int i );
+    uint64 i2i( uint64 idx, uint64 t );
     // Retourne un indice aléatoire valide.
     uint64 randIndex();
 private:
@@ -70,7 +65,7 @@ private:
     string _clear;
     // on peut mettre l'empreinte dans cette donnée membre
     // (évite de créer un tableau à chaque fois)
-    byte   _hashed[ 32 ];
+    byte   _hashed[ 16 ];
 
 };
 
@@ -84,16 +79,6 @@ inline void HashSHA1(unsigned char* pPlain, int nPlainLen, unsigned char* pHash)
 }
 
 inline string md5ToString(byte data[]){
-    /*
-    string result;
-    result.reserve(32);
-    for(int i=0; i < 16; i++)
-    {
-        result += "0123456789abcdef"[data[i]/16];
-        result += "0123456789abcdef"[data[i]%16];
-    }
-    return result;
-     */
     char mdString[33];
     for (int i = 0; i < 16; i++)
         sprintf(&mdString[i*2], "%02x", (unsigned int)data[i]);

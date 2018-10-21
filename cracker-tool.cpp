@@ -24,7 +24,7 @@ void str2bin(const std::string& in, unsigned char out[]){
 int main(int argc, char** argv){
 
     if(argc != 3){
-        cout << "Usage : ./cracker-tool <hashed> <basename_word-length-min_word-length-max_letters.txt>" << endl;
+        cout << "Usage : ./cracker-tool <hashed> <basename_word-length-min_word-length-max_letters_M_T.txt>" << endl;
         cout << "Example for azert : ./cracker-tool cdaa6716746fb685734abde87f1b08ad rainbow_5_5_abcdefghijklmnopqrstuvwxyz_100000_1000.txt" << endl;
         return -1;
     }
@@ -76,8 +76,9 @@ int main(int argc, char** argv){
     str2bin(argv[1],hashedText);
 
     string clear = "";
-    double probability = tool.getProbability(context.N,M,T) * 100;
-    printf("Percentage of success =  %.2f %\n", probability);
+    //To get 2 decimals
+    double probability = round(tool.getProbability(context.N,M,T)*100*100)/100;
+    cout << "Percentage of success = " << probability << "%" <<endl;
     if(tool.cracker(hashedText, rainbow, context, clear))
         cout << "Crack successfull ! clear = " << clear << endl;
     else
@@ -85,4 +86,3 @@ int main(int argc, char** argv){
 
     return 0;
 }
-
