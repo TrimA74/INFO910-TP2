@@ -1,10 +1,9 @@
-- PETETIN Antoine
-- SEBIRE Florian
+# TP2 Rainbow tables & time-memory tradeoff attack on hashing function (MD5)
 
-#Etat d'avancement du TP
+## Etat d'avancement du TP
 Tous les points ont été abordés sauf la partie "Aller plus loin".
 
-# Compilation
+## Compilation
 Pour compiler il suffit d'utiliser le Makefile.
 
 #Comment utiliser les programmes
